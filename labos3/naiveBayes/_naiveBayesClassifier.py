@@ -42,16 +42,12 @@ class NaiveBayesClassifier(object):
 
         i = 0
         for dictionary in trainingData:
-            # print dict
             for feature in self.features:
-                # print another, trainingLabels[i], something[another]
                 self.conditionalProb[feature, trainingLabels[i], dictionary[feature]] += 1
             i += 1
 
         for key in self.conditionalProb:
-            # print key, self.conditionalProb[key]
-            # self.conditionalProb[any] = (self.conditionalProb[any] + self.k * 1.0) / (self.prior[any[1]] + self.k * len(self.conditionalProb))
-            if self.k != 0:
+           if self.k != 0:
                 self.conditionalProb[key] = (self.conditionalProb[key] * 1.0 + 1.0) / (self.prior[key[1]] + self.k * len(self.legalLabels))
             else:
                 self.conditionalProb[key] = (self.conditionalProb[key] * 1.0) / (self.prior[key[1]])
@@ -93,7 +89,6 @@ class NaiveBayesClassifier(object):
         """
         joint = util.Counter()
 
-        # print instance
         for label in self.legalLabels:
             # calculate the joint probabilities for each class
             "*** YOUR CODE HERE ***"
@@ -121,10 +116,7 @@ class NaiveBayesClassifier(object):
             # calculate the log joint probabilities for each class
             "*** YOUR CODE HERE ***"
             product = 0
-            # print label
             for feature in instance:
-                # print feature, instance[feature]
-                # print self.conditionalProb.get((feature, label, instance.get(feature)))
                 product += math.log(self.conditionalProb.get((feature, label, instance.get(feature))))
             product += math.log(self.prior[label])
             logJoint[label] = product
